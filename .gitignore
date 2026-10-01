@@ -1,0 +1,15 @@
+# Local environments and generated files
+.venv/
+venv/
+sklearn-env/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+.env.*
+.streamlit/secrets.toml
+# Obtain MovieLens directly from GroupLens; do not redistribute it here.
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
