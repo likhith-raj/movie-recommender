@@ -9,7 +9,7 @@ A Streamlit movie-discovery app with genre-based similar-movie recommendations a
 - **Collaborative filtering module:** item-item cosine similarity over user-rating vectors, with missing ratings filled with zero. This module is not yet connected to the app.
 - **Streamlit interface:** select a movie, inspect similar titles and browse popular movies.
 
-The app does not use a user's rating history. Movie selection is a query, not personalised user-profile modelling. No hybrid model or held-out recommendation-quality result is claimed.
+The app does not use a user's rating history. Movie selection is a query, not personalised user-profile modelling. No hybrid model is implemented. A chronological held-out baseline evaluation is documented below.
 
 ## Setup
 
@@ -68,9 +68,23 @@ data/processed/                  Generated aggregates
 - Full similarity matrices use quadratic memory in the number of movies.
 - Zero-filled raw ratings do not account for individual users' rating scales or minimum co-rating support.
 - Popularity uses historical aggregate ratings, not recency or current trends.
-- No held-out ranking evaluation has been completed.
+- Evaluation is limited to warm-start users and a simulated selected-movie query; no online engagement testing has been conducted.
 
-Next, design a chronological train/validation/test split of ratings, define user-history queries and relevant held-out items, and compare popularity, content and collaborative ranking on the same eligible users/catalogue. Report Recall@10, NDCG@10 and catalogue coverage, including cold-start exclusions. Fit rating-derived statistics on training data only and tune choices on validation data. Integrating collaborative retrieval into the UI and adding a hybrid are future work.
+## Offline evaluation
+
+A global chronological split of MovieLens 1M evaluated all 1,079 eligible warm-start users using their last liked training movie as a simulated query. The Streamlit app itself does not use user histories.
+
+| Method | Recall@10 | NDCG@10 | Catalogue coverage |
+|---|---:|---:|---:|
+| Weighted popularity | 0.0376 | 0.1633 | 2.48% |
+| Genre similarity | 0.0042 | 0.0215 | 31.57% |
+| Item-item collaborative | 0.0354 | 0.1203 | 50.08% |
+
+Popularity had the strongest observed average ranking scores; collaborative filtering offered broader coverage. The paired recall difference interval includes zero. These scores are not accuracy percentages or evidence of online/business improvement.
+
+Run `python scripts/evaluate.py` after obtaining raw data. See [full protocol, limitations and results](reports/EVALUATION.md) and [machine-readable results](reports/evaluation_results.json).
+
+Next work: design a validation split before tuning tie-breaking or hybrid weights, and use a new untouched test period for final comparison. Collaborative UI integration and a hybrid remain future work.
 
 ## Dataset acknowledgement
 

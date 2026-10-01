@@ -1,0 +1,79 @@
+{
+  "protocol": {
+    "train_fraction_target": 0.8,
+    "cutoff_timestamp": 975768738,
+    "cutoff_utc": "2000-12-02T14:52:18+00:00",
+    "positive_rating_threshold": 4,
+    "minimum_positive_training_ratings": 5,
+    "query": "last positively rated training movie",
+    "k": 10,
+    "tie_break": "ascending movie ID",
+    "popularity_min_ratings": 100,
+    "test_tuning": false
+  },
+  "data": {
+    "ratings": 1000209,
+    "train_ratings": 800164,
+    "test_ratings": 200045,
+    "train_users": 5400,
+    "test_users": 1783,
+    "test_users_with_positive_ratings": 1762,
+    "catalogue_movies": 3662,
+    "evaluated_users": 1079,
+    "exclusions_among_test_positive_users": {
+      "no_training_history": 640,
+      "fewer_than_5_positive_training_ratings": 43,
+      "no_eligible_unseen_test_positive": 0
+    },
+    "eligible_unseen_test_positives": 53764,
+    "all_unseen_test_positives_for_history_qualified_users": 53806
+  },
+  "metrics": [
+    {
+      "method": "Popularity",
+      "users": 1079,
+      "recall_at_10": 0.03757910173630375,
+      "ndcg_at_10": 0.16332183852543722,
+      "precision_at_10": 0.14874884151992518,
+      "catalogue_coverage": 0.02484980884762425,
+      "unique_recommended_movies": 91
+    },
+    {
+      "method": "Genre similarity",
+      "users": 1079,
+      "recall_at_10": 0.004241750315242594,
+      "ndcg_at_10": 0.021525237328748375,
+      "precision_at_10": 0.02085264133456907,
+      "catalogue_coverage": 0.3156744948115784,
+      "unique_recommended_movies": 1156
+    },
+    {
+      "method": "Collaborative filtering",
+      "users": 1079,
+      "recall_at_10": 0.0353945239393322,
+      "ndcg_at_10": 0.12034362034149616,
+      "precision_at_10": 0.11306765523632954,
+      "catalogue_coverage": 0.500819224467504,
+      "unique_recommended_movies": 1834
+    }
+  ],
+  "paired_recall_difference_cf_minus_popularity": {
+    "mean": -0.002184577796971559,
+    "bootstrap_95_percent_interval": [
+      -0.008360615970619925,
+      0.004188066920072054
+    ],
+    "bootstrap_resamples": 2000,
+    "seed": 42
+  },
+  "source_sha256": {
+    "ratings.dat": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "movies.dat": "0140fc2356357c1a851d0f52e893a1e4d3696df632c4141cea8d5bc3d621f0b9"
+  },
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit_learn": "1.9.1"
+  }
+}
